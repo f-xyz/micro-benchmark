@@ -1,0 +1,25 @@
+{
+  "name": "micro-profiler",
+  "version": "1.0.0",
+  "description": "Extra-small profiler.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/f-xyz/micro-profiler.git"
+  },
+  "keywords": [
+    "profiler"
+  ],
+  "author": "andr <andrey.lischina@gmail.com> (https://github.com/fantasticMrFox)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/f-xyz/micro-profiler/issues"
+  },
+  "homepage": "https://github.com/f-xyz/micro-profiler",
+  "dependencies": {
+    "babel": "^5.5.6"
+  }
+}
