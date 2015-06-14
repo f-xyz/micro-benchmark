@@ -16,6 +16,10 @@ describe 'profileAsync()', () ->
     fnThatThrows = () -> profileAsync()
     fnThatThrows.should.throw('No function to profile!')
 
+  it 'throws if callback function is not provided', () ->
+    fnThatThrows = () -> profileAsync((() -> ), null)
+    fnThatThrows.should.throw('No callback function!')
+
   it 'calls provided function at least once', (done) ->
     spy = sinon.spy();
     fn = (cb) -> spy() || cb()

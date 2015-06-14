@@ -8,7 +8,7 @@ function configure(defaults, options) {
 
 function profile(fn, options) {
 
-    if (!fn) {
+    if (!(fn instanceof Function)) {
         throw new Error('No function to profile!');
     }
 
@@ -43,8 +43,12 @@ function profile(fn, options) {
 
 function profileAsync(fn, options, cb) {
 
-    if (!fn) {
+    if (!(fn instanceof Function)) {
         throw new Error('No function to profile!');
+    }
+
+    if (!(cb instanceof Function)) {
+        throw new Error('No callback function!');
     }
 
     var config = configure({
@@ -71,9 +75,7 @@ function profileAsync(fn, options, cb) {
                 lastResult: lastResult
             };
 
-            if (typeof cb == 'function') {
-                cb(result);
-            }
+            cb(result);
 
         } else {
             fn(run);

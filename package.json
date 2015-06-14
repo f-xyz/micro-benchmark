@@ -1,11 +1,10 @@
 {
-  "name": "micro-profiler",
-  "version": "1.0.2",
-  "description": "Extra-small profiler.",
+  "name": "micro-benchmark",
+  "version": "1.0.3",
+  "description": "Extra-small benchmark suite.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/index.js",
-    "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha tests/index.js"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha tests/index.js"
   },
   "repository": {
     "type": "git",
