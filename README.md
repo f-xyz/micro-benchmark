@@ -1,4 +1,4 @@
-# micro-profiler v1.0.3
+# micro-profiler
 
 [![Build Status](https://travis-ci.org/f-xyz/micro-profiler.svg?branch=master)](https://travis-ci.org/f-xyz/micro-profiler)
 
