@@ -1,91 +1,102 @@
-function configure(defaults, options) {
-    var config = defaults;
-    Object.keys(options || {}).forEach(function (key) {
-        config[key] = options[key];
-    });
-    return config;
-}
+(function (_global, factory) {
+    /* istanbul ignore next */
+    if (typeof exports === 'object') {
+        // CommonJS
+        factory(exports);
+    } else {
+        // Browser globals
+        factory(_global.microBenchmark = {});
+    }
+}(this, function (exports) {
 
-function profile(fn, options) {
+    exports.profile = profile;
+    exports.profileAsync = profileAsync;
 
-    if (!(fn instanceof Function)) {
-        throw new Error('No function to profile!');
+    function createConfig(defaults, options) {
+        var config = defaults;
+        Object.keys(options || {}).forEach(function (key) {
+            config[key] = options[key];
+        });
+        return config;
     }
 
-    var config = configure({
-        maxOperations: 1e3,
-        duration: 100
-    }, options);
+    function profile(fn, options) {
 
-    var started = Date.now();
-    var lastResult,
-        elapsed,
-        operations = 0;
-
-    while (true) {
-
-        lastResult = fn();
-        elapsed = Date.now() - started;
-        operations++;
-
-        if (elapsed >= config.duration
-        ||  operations >= config.maxOperations) {
-            break;
+        if (!(fn instanceof Function)) {
+            throw new Error('No function to profile!');
         }
-    }
 
-    return {
-        ops: operations / elapsed * 1000,
-        time: elapsed / operations,
-        lastResult: lastResult
-    };
-}
+        var config = createConfig({
+            maxOperations: 1e3,
+            duration: 100
+        }, options);
 
-function profileAsync(fn, options, cb) {
+        var started = Date.now();
+        var lastResult,
+            elapsed,
+            operations = 0;
 
-    if (!(fn instanceof Function)) {
-        throw new Error('No function to profile!');
-    }
+        while (true) {
 
-    if (!(cb instanceof Function)) {
-        throw new Error('No callback function!');
-    }
+            lastResult = fn();
+            elapsed = Date.now() - started;
+            operations++;
 
-    var config = configure({
-        maxOperations: 1e3,
-        duration: 100
-    }, options);
-
-    var started = Date.now();
-    var lastResult,
-        elapsed,
-        operations = 0;
-
-    var run = function (currentResult) {
-        lastResult = currentResult;
-        elapsed = Date.now() - started;
-        operations++;
-
-        if (elapsed >= config.duration
-        ||  operations >= config.maxOperations) {
-
-            var result = {
-                ops: operations / elapsed * 1000,
-                time: elapsed / operations,
-                lastResult: lastResult
-            };
-
-            cb(result);
-
-        } else {
-            fn(run);
+            if (elapsed >= config.duration
+            ||  operations >= config.maxOperations) {
+                break;
+            }
         }
-    };
 
-    fn(run);
-}
+        return {
+            ops: operations / elapsed * 1000,
+            time: elapsed / operations,
+            lastResult: lastResult
+        };
+    }
 
-module.exports = {
-    profile: profile,
-    profileAsync: profileAsync
-};
+    function profileAsync(fn, options, cb) {
+
+        if (!(fn instanceof Function)) {
+            throw new Error('No function to profile!');
+        }
+
+        if (!(cb instanceof Function)) {
+            throw new Error('No callback function!');
+        }
+
+        var config = createConfig({
+            maxOperations: 1e3,
+            duration: 100
+        }, options);
+
+        var started = Date.now();
+        var lastResult,
+            elapsed,
+            operations = 0;
+
+        var run = function (currentResult) {
+            lastResult = currentResult;
+            elapsed = Date.now() - started;
+            operations++;
+
+            if (elapsed >= config.duration
+            ||  operations >= config.maxOperations) {
+
+                var result = {
+                    ops: operations / elapsed * 1000,
+                    time: elapsed / operations,
+                    lastResult: lastResult
+                };
+
+                cb(result);
+
+            } else {
+                fn(run);
+            }
+        };
+
+        fn(run);
+    }
+
+}));
