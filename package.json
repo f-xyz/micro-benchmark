@@ -1,10 +1,11 @@
 {
   "name": "micro-profiler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Extra-small profiler.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha tests/index.js",
+    "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha tests/index.js"
   },
   "repository": {
     "type": "git",
@@ -13,13 +14,17 @@
   "keywords": [
     "profiler"
   ],
-  "author": "andr <andrey.lischina@gmail.com> (https://github.com/fantasticMrFox)",
+  "author": "f-xyz <andrey.lischina@gmail.com> (https://github.com/fantasticMrFox)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/f-xyz/micro-profiler/issues"
   },
   "homepage": "https://github.com/f-xyz/micro-profiler",
-  "dependencies": {
-    "babel": "^5.5.6"
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "coffee-script": "^1.9.3",
+    "istanbul": "^0.3.15",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.3"
   }
 }

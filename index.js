@@ -1,37 +1,89 @@
-'use strict';
+function configure(defaults, options) {
+    var config = defaults;
+    Object.keys(options || {}).forEach(function (key) {
+        config[key] = options[key];
+    });
+    return config;
+}
 
-function profile(fn, config) {
+function profile(fn, options) {
 
-    var maxOperations = config.maxOperations || 1e3;
-    var duration = config.duration || 100;
+    if (!fn) {
+        throw new Error('No function to profile!');
+    }
+
+    var config = configure({
+        maxOperations: 1e3,
+        duration: 100
+    }, options);
 
     var started = Date.now();
-    var operations = 0, elapsed;
+    var lastResult,
+        elapsed,
+        operations = 0;
 
     while (true) {
 
-        fn();
-        operations++;
+        lastResult = fn();
         elapsed = Date.now() - started;
+        operations++;
 
-        if (elapsed > duration || operations > maxOperations) {
+        if (elapsed >= config.duration
+        ||  operations >= config.maxOperations) {
             break;
         }
     }
 
     return {
-        fps: operations / elapsed * 1000,
-        time: elapsed / operations
+        ops: operations / elapsed * 1000,
+        time: elapsed / operations,
+        lastResult: lastResult
     };
-};
+}
 
-function report (name, p) {
-    var time = p.time.toFixed(2) + ' ms';
-    var fps = p.fps.toFixed(2) + ' ops';
-    return name + ' -> ' + time + ', ' + fps;
+function profileAsync(fn, options, cb) {
+
+    if (!fn) {
+        throw new Error('No function to profile!');
+    }
+
+    var config = configure({
+        maxOperations: 1e3,
+        duration: 100
+    }, options);
+
+    var started = Date.now();
+    var lastResult,
+        elapsed,
+        operations = 0;
+
+    var run = function (currentResult) {
+        lastResult = currentResult;
+        elapsed = Date.now() - started;
+        operations++;
+
+        if (elapsed >= config.duration
+        ||  operations >= config.maxOperations) {
+
+            var result = {
+                ops: operations / elapsed * 1000,
+                time: elapsed / operations,
+                lastResult: lastResult
+            };
+
+            if (typeof cb == 'function') {
+                cb(result);
+            }
+
+        } else {
+            fn(run);
+        }
+    };
+
+    fn(run);
 }
 
 module.exports = {
     profile: profile,
-    report: report
+    profileAsync: profileAsync
 };
