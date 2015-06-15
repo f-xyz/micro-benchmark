@@ -1,8 +1,6 @@
 # micro-profiler
 
-[![Build Status](https://travis-ci.org/f-xyz/micro-profiler.svg?branch=master)](https://travis-ci.org/f-xyz/micro-profiler)
-
-##
+[![Build Status](https://travis-ci.org/f-xyz/micro-benchmark.svg?branch=master)](https://travis-ci.org/f-xyz/micro-benchmark)
 
 ES5 compatible, dependency-free benchmark suite.
 Runs in node.js and in a browser (IE 9+).
@@ -10,7 +8,7 @@ Runs in node.js and in a browser (IE 9+).
 ## Installation
 
 ```
-npm install micro-profiler
+npm install micro-benchmark
 ```
 
 ## Synchronous: function profile(fn, config) {}

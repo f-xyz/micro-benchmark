@@ -1,7 +1,11 @@
 { profile } = require('../index')
+console.log(profile);
 sinon = require('sinon')
 
-describe 'profile()', () ->
+describe '', ->
+  it 'a', -> console.log(profile)
+
+xdescribe 'profile()', () ->
 
   dateNow = Date.now
 
