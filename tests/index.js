@@ -6,7 +6,7 @@ void function () {
 }();
 
 describe('### micro-profiler tests ###', function () {
-    //require('./profile.tests.coffee');
+    require('./profile.tests.coffee');
     require('./profileAsync.tests.coffee');
     require('./suite.tests.coffee');
 

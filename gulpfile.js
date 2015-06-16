@@ -54,7 +54,7 @@ gulp.task('test', function () {
             watch: false,
             debug: true,
             istanbul: true,
-            compilers: ''
+            compilers: 'coffee:coffee-script/register'
         }));
 });
 
@@ -66,7 +66,7 @@ gulp.task('test-watch', function () {
             watch: true,
             debug: true,
             istanbul: true,
-            compilers: ''
+            compilers: 'coffee:coffee-script/register'
         }));
 });
 

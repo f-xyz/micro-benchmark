@@ -1,4 +1,4 @@
-{ profileAsync } = require('../index')
+profileAsync = require('../profileAsync')
 sinon = require('sinon')
 
 describe 'profileAsync()', () ->
