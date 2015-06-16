@@ -32,17 +32,15 @@ gulp.task('browserify', function () {
     });
     return bundler
         .bundle()
-
         .pipe(source(getBundleName('.js')))
         .pipe(gulp.dest('dist/'))
-
+        //
         .pipe(rename({ extname: '.min.js' }))
         .pipe(buffer())
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(uglify())
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist/'))
-
     ;
 });
 
@@ -71,8 +69,7 @@ gulp.task('test-watch', function () {
 });
 
 gulp.task('jsdoc', function () {
-    return gulp.src('*.js')
-        .pipe(jsdoc('docs'))
+    return gulp.src('*.js').pipe(jsdoc('docs'))
 });
 
 function getBundleName(ext) {

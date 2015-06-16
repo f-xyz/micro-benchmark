@@ -5,17 +5,18 @@ var profileAsync = require('./profileAsync');
 function suite(config) {
     var specs = config.specs;
 
-    //log('started');
-
     var result = specs.map(function (spec) {
+        var result = profile(spec.fn, config/*, next() */);
         return {
             name: spec.name,
-            result: profile(spec.fn, config/*, next() */)
+            ops: result.ops,
+            time: result.time,
+            lastResult: result.lastResult
         };
     });
 
     result.sort(function (a, b) {
-        return b.result.ops - a.result.ops;
+        return b.ops - a.ops;
     });
 
     return result;

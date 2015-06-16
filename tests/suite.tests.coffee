@@ -46,7 +46,8 @@ describe 'suite() - incomplete, TBD', ->
       (x.name for x in res).should.eql ['test 1', 'test 2']
 
     it 'yields result of profile()', ->
-      res[0].result.should.eql
+      res[0].should.eql
+        name: 'test 1'
         ops: 100
         time: 10
         lastResult: 123
@@ -58,29 +59,36 @@ describe 'suite() - incomplete, TBD', ->
 
 
     describe 'report()', ->
-      output = ''
-#      console =
-#        log: (args...) -> output += args.join('')
 
       runSuite = (config) ->
         result = suite(config)
         console.log(result)
 
         maxOps = result.reduce (res, x) ->
-          currentItemOps = x.result.ops
-          if res == null || currentItemOps > res
-            return x.result.ops
+          if res == null || x.ops > res
+            return x.ops
           else
             res
         , null
         console.log('\ntotals', maxOps)
 
         console.log '\n\n'
+
+        formatNumber = (n) ->
+          switch
+            when n < 1 then n.toFixed(2)
+            when n > 1000 then n.toExponential(2)
+            else n.toFixed(0)
+
         result.map (x) ->
-          console.log(x.name)
+          cells = [
+            x.name + '\t',
+            x.ops.toExponential() + ' ops',
+            formatNumber(x.time) + ' ms',
+            String(x.lastResult)
+          ]
+          console.log(cells.join('\t'))
 
 
-      it '', ->
-        runSuite config
-        global.console.log output
+      it '', -> runSuite config
 
