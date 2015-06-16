@@ -55,8 +55,15 @@ describe 'suite() - incomplete, TBD', ->
     it 'passes config to profile()', ->
       lastConfig.should.eql config
 
-    describe 'pad()', ->
+    pad = (str, n, char) ->
+      if str.length < n
+        pad(str + char, n, char)
+      else
+        str
 
+    describe 'padString()', ->
+      it 'pads string from right by spaces', ->
+        pad('abc', 5, '#').should.eq('abc##')
 
     describe 'report()', ->
 
@@ -76,18 +83,19 @@ describe 'suite() - incomplete, TBD', ->
 
         formatNumber = (n) ->
           switch
-            when n < 1 then n.toFixed(2)
-            when n > 1000 then n.toExponential(2)
-            else n.toFixed(0)
+            when n < 1    then n.toFixed(2)
+            when n < 1000 then n.toFixed(0)
+            else               n.toExponential(2)
 
         result.map (x) ->
           cells = [
-            x.name + '\t',
+            x.name,
             x.ops.toExponential() + ' ops',
             formatNumber(x.time) + ' ms',
             String(x.lastResult)
           ]
-          console.log(cells.join('\t'))
+          cells = cells.map (x) -> pad(x, 10, ' ')
+          console.log(cells.join(''))
 
 
       it '', -> runSuite config
