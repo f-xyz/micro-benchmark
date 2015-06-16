@@ -14,7 +14,7 @@ var browserify = require('browserify');
 gulp.task('default', ['build']);
 gulp.task('build', ['clean', 'browserify', 'test', 'jsdoc']);
 
-gulp.task('clean', function(cb) {
+gulp.task('clean', function (cb) {
     del([
         'dist/',
         'coverage/',
@@ -22,7 +22,7 @@ gulp.task('clean', function(cb) {
     ], cb);
 });
 
-gulp.task('browserify', function() {
+gulp.task('browserify', function () {
     var bundler = browserify({
         entries: ['./index.js'],
         debug: true,
@@ -46,18 +46,31 @@ gulp.task('browserify', function() {
     ;
 });
 
-gulp.task('test', function() {
+gulp.task('test', function () {
     return gulp.src('tests/index.js', { read: false })
         .pipe(mocha({
             R: 'spec',
             colors: true,
+            watch: false,
             debug: true,
-            istanbul: true/*,
-            compilers: 'coffee:coffee-script/register'*/
+            istanbul: true,
+            compilers: ''
         }));
 });
 
-gulp.task('jsdoc', function() {
+gulp.task('test-watch', function () {
+    return gulp.src('tests/index.js', { read: false })
+        .pipe(mocha({
+            R: 'spec',
+            colors: true,
+            watch: true,
+            debug: true,
+            istanbul: true,
+            compilers: ''
+        }));
+});
+
+gulp.task('jsdoc', function () {
     return gulp.src('*.js')
         .pipe(jsdoc('docs'))
 });

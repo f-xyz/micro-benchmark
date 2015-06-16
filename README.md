@@ -1,6 +1,7 @@
 # micro-profiler
 
 [![Build Status](https://travis-ci.org/f-xyz/micro-benchmark.svg?branch=master)](https://travis-ci.org/f-xyz/micro-benchmark)
+[![Coverage Status](https://coveralls.io/repos/f-xyz/micro-benchmark/badge.svg)](https://coveralls.io/r/f-xyz/micro-benchmark)
 
 ES5 compatible, dependency-free benchmark suite.
 Runs in node.js and in a browser (IE 9+).

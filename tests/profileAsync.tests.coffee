@@ -64,3 +64,9 @@ describe 'profileAsync()', () ->
     profileAsync(fn, { maxOperations: Infinity, duration: 20e3 }, () ->
       spy.callCount.should.eq(20)
       done())
+
+  describe 'integration tests', () ->
+    it 'profiles (cb) -> setTimeout(cb, 100)', (done) ->
+      this.slow(1000)
+      fn = (cb) -> setTimeout(cb, 100)
+      profileAsync fn, null, () -> done()

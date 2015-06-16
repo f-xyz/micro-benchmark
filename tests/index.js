@@ -1,9 +1,16 @@
-require('chai').should();
-require('coffee-script/register');
+var chai = require('chai');
+
+// IIFE
+void function () {
+    chai.should();
+}();
 
 describe('### micro-profiler tests ###', function () {
-    //require('../index');
-    require('./profile.tests.coffee');
+    //require('./profile.tests.coffee');
     require('./profileAsync.tests.coffee');
     require('./suite.tests.coffee');
+
+    after(function () {
+        console.log('\n\t', new Date());
+    });
 });

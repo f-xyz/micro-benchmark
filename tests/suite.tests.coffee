@@ -1,59 +1,86 @@
-{ suite } = require('../index')
-sinon = require('sinon')
+proxyquire = require 'proxyquire'
+suite = require '../suite'
 
 describe 'suite() - incomplete, TBD', ->
 
-  dateNow = Date.now
+  it 'is a function', ->
+    suite.should.be.a 'function'
 
-  beforeEach () ->
-    dateNowCalledCount = 0
-    Date.now = () -> 1000*dateNowCalledCount++
-
-  afterEach () ->
-    Date.now = dateNow
-
-  it 'is a function', -> suite.should.be.a('function')
   describe 'benchmarks given specs', ->
 
-    res = suite({
-#      setup: () ->
-#      teardown: () ->
-      maxOperations: 1
-      duration: 1e3
-      specs: [{
-        name: 'test 1'
-        fn: () -> [0...10000].reduce(((res) -> res + 1), 0)
-      }, {
-        name: 'test 2'
-        fn: () -> [0...1000].reduce(((res) -> res + 1), 0)
-      }]
-    })
+    # arrange
 
-    it 'sorts result by ops desc', ->
-      res[0].name.should.eq('test 2')
-      res[1].name.should.eq('test 1')
-#    it 'yields result of profile() ', -> winner
+    test1 = ->
+    test2 = ->
 
-#    winner
+    lastConfig = null
 
-    return
-    res.should.eql([
-      {
-        name: 'test 1'
-        result: {
-          lastResult: 10000
-          ops: 500
-          time: 2
-        }
-      }
-      {
-        name: 'test 2 async'
-        result: {
-          lastResult: 1000
-          ops: null
-          time: 0
-        }
-      }
-    ])
+    profileMock = (fn, config) ->
+      lastConfig = config
+      if fn == test1
+        ops: 100
+        time: 10
+        lastResult: 123
+      else
+        ops: 10
+        time: 100
+        lastResult: 321
 
-  it 'yields result', ->
+    suite = proxyquire '../suite', { './profile': profileMock }
+
+    # action
+
+    config = specs: [{
+      name: 'test 1'
+      fn: test1
+    }, {
+      name: 'test 2'
+      fn: test2
+    }]
+
+    res = suite(config)
+
+    # assert
+
+    it 'sorts result by operation by second desc.', ->
+      (x.name for x in res).should.eql ['test 1', 'test 2']
+
+    it 'yields result of profile()', ->
+      res[0].result.should.eql
+        ops: 100
+        time: 10
+        lastResult: 123
+
+    it 'passes config to profile()', ->
+      lastConfig.should.eql config
+
+    describe 'pad()', ->
+
+
+    describe 'report()', ->
+      output = ''
+#      console =
+#        log: (args...) -> output += args.join('')
+
+      runSuite = (config) ->
+        result = suite(config)
+        console.log(result)
+
+        maxOps = result.reduce (res, x) ->
+          currentItemOps = x.result.ops
+          if res == null || currentItemOps > res
+            return x.result.ops
+          else
+            res
+        , null
+        console.log('\ntotals', maxOps)
+
+        console.log '\n\n'
+        result.map (x) ->
+          console.log(x.name)
+
+
+      it '', ->
+        runSuite config
+        global.console.log output
+
