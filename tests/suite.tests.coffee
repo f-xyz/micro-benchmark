@@ -29,7 +29,7 @@ describe 'suite() - incomplete, TBD', ->
       }]
     })
 
-    it 'sorts result by ', ->
+    it 'sorts result by ops desc', ->
       res[0].name.should.eq('test 2')
       res[1].name.should.eq('test 1')
 #    it 'yields result of profile() ', -> winner

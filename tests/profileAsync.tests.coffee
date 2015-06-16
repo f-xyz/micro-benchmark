@@ -12,6 +12,9 @@ describe 'profileAsync()', () ->
   afterEach () ->
     Date.now = dateNow
 
+  it 'is a function', () ->
+    profileAsync.should.be.a('function')
+
   it 'throws if test function is not provided', () ->
     fnThatThrows = () -> profileAsync()
     fnThatThrows.should.throw('No function to profile!')

@@ -1,30 +1,40 @@
 {
   "name": "micro-benchmark",
-  "version": "1.0.6",
+  "version": "1.1.6",
   "description": "Extra-small benchmarking suite.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha tests/index.js"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/f-xyz/micro-profiler.git"
+    "url": "https://github.com/f-xyz/micro-benchmark.git"
   },
   "keywords": [
     "profiler"
   ],
-  "author": "f-xyz <andrey.lischina@gmail.com> (https://github.com/fantasticMrFox)",
+  "author": "f-xyz <andrey.lischina@gmail.com> (https://github.com/f-xyz)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/f-xyz/micro-profiler/issues"
+    "url": "https://github.com/f-xyz/micro-benchmark/issues"
   },
-  "homepage": "https://github.com/f-xyz/micro-profiler",
+  "homepage": "https://github.com/f-xyz/micro-benchmark",
   "devDependencies": {
+    "browserify": "^10.2.4",
     "chai": "^3.0.0",
     "coffee-script": "^1.9.3",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-jsdoc": "^0.1.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-spawn-mocha": "^2.0.1",
+    "gulp-uglify": "^1.2.0",
     "istanbul": "^0.3.15",
     "mocha": "^2.2.5",
     "proxyquire": "^1.5.0",
-    "sinon": "^1.15.3"
+    "sinon": "^1.15.3",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

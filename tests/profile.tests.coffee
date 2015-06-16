@@ -1,11 +1,7 @@
 { profile } = require('../index')
-console.log(profile);
 sinon = require('sinon')
 
-describe '', ->
-  it 'a', -> console.log(profile)
-
-xdescribe 'profile()', () ->
+describe 'profile()', () ->
 
   dateNow = Date.now
 
@@ -15,6 +11,9 @@ xdescribe 'profile()', () ->
 
   afterEach () ->
     Date.now = dateNow
+
+  it 'is a function', () ->
+    profile.should.be.a('function')
 
   it 'throws if test function is not provided', () ->
     fnThatThrows = () -> profile()

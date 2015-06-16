@@ -1,13 +1,4 @@
-
-exports.profile = profile;
-
-function createConfig(defaults, options) {
-    var config = defaults;
-    Object.keys(options || {}).forEach(function (key) {
-        config[key] = options[key];
-    });
-    return config;
-}
+var createConfig = require('./createConfig');
 
 function profile(fn, options) {
 
@@ -44,3 +35,5 @@ function profile(fn, options) {
         lastResult: lastResult
     };
 }
+
+module.exports = profile;
