@@ -1,5 +1,7 @@
 proxyquire = require 'proxyquire'
 suite = require '../suite'
+report = require '../report'
+{ formatNumber, pad, padLeft } = require '../util'
 
 describe 'suite() - incomplete, TBD', ->
 
@@ -55,48 +57,20 @@ describe 'suite() - incomplete, TBD', ->
     it 'passes config to profile()', ->
       lastConfig.should.eql config
 
-    pad = (str, n, char) ->
-      if str.length < n
-        pad(str + char, n, char)
-      else
-        str
-
-    describe 'padString()', ->
-      it 'pads string from right by spaces', ->
-        pad('abc', 5, '#').should.eq('abc##')
+    ######################################################33333
 
     describe 'report()', ->
+        it '', ->
+          result = suite(config)
+          report(result)
 
-      runSuite = (config) ->
-        result = suite(config)
-        console.log(result)
+    ######################################################33333
 
-        maxOps = result.reduce (res, x) ->
-          if res == null || x.ops > res
-            return x.ops
-          else
-            res
-        , null
-        console.log('\ntotals', maxOps)
-
-        console.log '\n\n'
-
-        formatNumber = (n) ->
-          switch
-            when n < 1    then n.toFixed(2)
-            when n < 1000 then n.toFixed(0)
-            else               n.toExponential(2)
-
-        result.map (x) ->
-          cells = [
-            x.name,
-            x.ops.toExponential() + ' ops',
-            formatNumber(x.time) + ' ms',
-            String(x.lastResult)
-          ]
-          cells = cells.map (x) -> pad(x, 10, ' ')
-          console.log(cells.join(''))
-
-
-      it '', -> runSuite config
-
+    describe 'utils tests', ->
+      describe 'pad()', ->
+        it 'pads string from right by spaces', ->
+          pad('abc', 5, '#').should.eq('abc##')
+          pad('abc', 1, '#').should.eq('abc')
+        describe 'padLeft()', ->
+        it 'pads string from right by spaces', ->
+          padLeft('abc', 5, '#').should.eq('##abc')

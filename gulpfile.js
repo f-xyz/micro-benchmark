@@ -69,7 +69,7 @@ gulp.task('test-watch', function () {
 });
 
 gulp.task('jsdoc', function () {
-    return gulp.src('*.js').pipe(jsdoc('docs'))
+    return gulp.src('*.js').pipe(jsdoc('docs'));
 });
 
 function getBundleName(ext) {
