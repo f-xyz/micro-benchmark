@@ -1,6 +1,6 @@
 {
   "name": "micro-benchmark",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Extra-small benchmarking suite.",
   "main": "index.js",
   "scripts": {
