@@ -23,10 +23,12 @@ describe 'suite() - incomplete, TBD', ->
         ops: 100
         time: 10
         lastResult: 123
-      else
+      else if fn == test2
         ops: 10
         time: 100
         lastResult: 321
+      else
+        throw new RangeError('Invalid fn!');
 
     suite = proxyquire '../suite', { './profile': profileMock }
 
@@ -57,20 +59,32 @@ describe 'suite() - incomplete, TBD', ->
     it 'passes config to profile()', ->
       lastConfig.should.eql config
 
-    ######################################################33333
+    ###########################################################
 
     describe 'report()', ->
-        it '', ->
-          result = suite(config)
-          report(result)
+        it 'returns formatted report', ->
 
-    ######################################################33333
+          suiteResult = [
+            { name: 'test 1', ops: 100, time: 10, lastResult: 123 },
+            { name: 'test 2', ops: 10,  time: 10, lastResult: 321  }
+          ]
+
+          log = report(suiteResult);
+
+          log.should.eq '\n\n' +
+            'Name      Operation per second    Average time\n' +
+            'test 1    100 ops                        10 ms    =====================>\n' +
+            'test 2    10 ops                         10 ms    ===>\n\n'
+
+###########################################################
 
     describe 'utils tests', ->
       describe 'pad()', ->
+
         it 'pads string from right by spaces', ->
           pad('abc', 5, '#').should.eq('abc##')
           pad('abc', 1, '#').should.eq('abc')
+
         describe 'padLeft()', ->
-        it 'pads string from right by spaces', ->
-          padLeft('abc', 5, '#').should.eq('##abc')
+          it 'pads string from right by spaces', ->
+            padLeft('abc', 5, '#').should.eq('##abc')
