@@ -4,6 +4,7 @@ report = require '../report'
 { formatNumber, pad, padLeft } = require '../util'
 
 describe 'report()', ->
+
   it 'returns formatted report', ->
 
     suiteResult = [

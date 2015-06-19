@@ -3,20 +3,6 @@ var formatNumber = require('./util').formatNumber;
 var util = require('./util');
 var log = require('./log');
 
-function identity(x) {
-    return x;
-}
-
-function prop(key) {
-    return function (x) {
-        return x[key];
-    };
-}
-
-function getColumn(collection, key) {
-    return collection.map(prop(key));
-}
-
 function max(list) {
     return Math.max.apply(Math, list);
 }
@@ -28,8 +14,8 @@ function compose(f, g) {
 }
 
 function getColumnMaxLength(collection, key) {
-    var column = getColumn(collection, key);
-    return max(column.map(prop('length')));
+    var column = util.getColumn(collection, key);
+    return max(column.map(util.prop('length')));
 }
 
 var table = [{
@@ -52,8 +38,8 @@ describe('repeat()', function () {
 
 describe('column() tests', function () {
     it('yields the column', function () {
-        getColumn(table, 'a').should.eql([1, 2]);
-        getColumn(table, 'b').should.eql([2, 3]);
+        util.getColumn(table, 'a').should.eql([1, 2]);
+        util.getColumn(table, 'b').should.eql([2, 3]);
     });
 });
 
@@ -80,7 +66,7 @@ function report(result) {
     };
 
     // max operations per second value
-    var maxOps = max(result.map(compose(parseInt, prop('ops'))));
+    var maxOps = max(result.map(util.prop('ops')));
 
     // formatting
     result = result.map(function (x) {
@@ -98,7 +84,7 @@ function report(result) {
     var opsMaxLength = getMaxLen('ops');
     var timeMaxLength = getMaxLen('time');
 
-    //
+    // final processing and output
     var rowSeparator = '\n';
     var cellSeparator = '    ';
 
@@ -118,7 +104,6 @@ function report(result) {
         util.padLeft(headers.time, timeMaxLength)
     ];
 
-    // output
     var output = [];
     output.push('\n');
     output.push(headers.join(cellSeparator));
