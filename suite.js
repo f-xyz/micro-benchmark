@@ -1,4 +1,5 @@
 var profile = require('./profile');
+var util = require('./util');
 
 function suite(config) {
     var specs = config.specs;
@@ -6,7 +7,7 @@ function suite(config) {
     var result = specs.map(function (spec) {
         var result = profile(spec.fn, config);
         return {
-            name: spec.name,
+            name: spec.name || util.uniqId('suite-'),
             ops: result.ops,
             time: result.time,
             lastResult: result.lastResult

@@ -1,5 +1,10 @@
 var profileAsync = require('./profileAsync');
+var util = require('./util');
 
+/**
+ * @param config
+ * @param cb
+ */
 function suiteAsync(config, cb) {
     var specs = config.specs;
 
@@ -8,7 +13,7 @@ function suiteAsync(config, cb) {
         if (spec) {
             profileAsync(spec.fn, config, function (result) {
                 results.push({
-                    name: spec.name,
+                    name: spec.name || util.uniqId('suite-'),
                     ops: result.ops,
                     time: result.time,
                     lastResult: result.lastResult

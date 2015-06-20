@@ -40,7 +40,7 @@ describe 'suiteAsync() tests', ->
       name: 'test 1'
       fn: test1
     }, {
-      name: 'test 2'
+      # no name
       fn: test2
     }]
 
@@ -49,7 +49,7 @@ describe 'suiteAsync() tests', ->
       # assert
 
       it 'sorts result by operation by second desc.', ->
-        (x.name for x in result).should.eql ['test 1', 'test 2']
+        (x.name for x in result).should.eql ['test 1', 'suite-1']
 
       it 'yields result of profile()', ->
         result[0].should.eql

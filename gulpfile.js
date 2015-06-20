@@ -7,10 +7,16 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var del = require('del');
 var browserify = require('browserify');
+var pkg = require('./package.json');
+
+function getBundleName(ext) {
+    var name = pkg.name;
+    var version = pkg.version;
+    return name + '-' + version + ext;
+}
 
 gulp.task('default', ['build']);
 gulp.task('build', ['clean', 'browserify', 'test']);
-
 gulp.task('clean', function (cb) {
     del([
         'dist/',
@@ -18,7 +24,6 @@ gulp.task('clean', function (cb) {
         'docs/'
     ], cb);
 });
-
 gulp.task('browserify', function () {
     var bundler = browserify({
         entries: ['./index.js'],
@@ -40,7 +45,6 @@ gulp.task('browserify', function () {
         .pipe(gulp.dest('dist/'))
     ;
 });
-
 gulp.task('test', function () {
     return gulp.src('tests/index.js', { read: false })
         .pipe(mocha({
@@ -52,7 +56,6 @@ gulp.task('test', function () {
             compilers: 'coffee:coffee-script/register'
         }));
 });
-
 gulp.task('test-watch', function () {
     return gulp.src('tests/index.js', { read: false })
         .pipe(mocha({
@@ -64,10 +67,3 @@ gulp.task('test-watch', function () {
             compilers: 'coffee:coffee-script/register'
         }));
 });
-
-function getBundleName(ext) {
-    var pkg = require('./package.json');
-    var name = pkg.name;
-    var version = pkg.version;
-    return name + '-' + version + ext;
-}

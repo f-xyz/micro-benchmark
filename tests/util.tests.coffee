@@ -45,5 +45,7 @@ describe 'util tests', ->
 
     describe 'uniqId() tests', ->
       it 'return unique ID', ->
+        util.uniqId.reset(0);
         util.uniqId('abc').should.eq('abc0')
         util.uniqId('abc').should.eq('abc1')
+        util.uniqId.reset(0);

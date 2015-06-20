@@ -1,16 +1,18 @@
 function formatNumber(n) {
-    if (typeof n != 'number') return n;
-
-    switch (true) {
-        case n === 0:
-            return '0';
-        case n < 1:
-            return n.toFixed(2);
-        case n < 1000:
-            return n.toFixed(0);
-        default:
-            return n.toExponential(1)
-                .replace(/e\+/, ' x 10^');
+    if (typeof n == 'number') {
+        switch (true) {
+            case n === 0:
+                return '0';
+            case n < 1:
+                return n.toFixed(2);
+            case n < 1000:
+                return n.toFixed(0);
+            default:
+                return n.toExponential(1)
+                    .replace(/e\+/, ' x 10^');
+        }
+    } else {
+        return n;
     }
 }
 
@@ -52,11 +54,11 @@ function repeat(str, times) {
     return new Array(times + 1).join(str);
 }
 
-var uniqIdCounter = 0;
-
 function uniqId(prefix) {
-    return prefix + String(uniqIdCounter++);
+    return prefix + String(uniqId.counter++);
 }
+uniqId.counter = 0;
+uniqId.reset = function (counter) { uniqId.counter = counter };
 
 //////////////////////////////////////////////////////////////////////////////
 
