@@ -40,7 +40,7 @@ var result = microBenchmark.suite({
     }]
 });
 
-var report = microBenchmark.report(result, { chartWidth: 10 });
+var report = microBenchmark.report(result, { chartWidth: 10 /* 30 is default */ });
 console.log(report);
 
 // outputs
