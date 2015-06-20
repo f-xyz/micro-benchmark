@@ -11,6 +11,8 @@ function formatNumber(n) {
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////
+
 function pad(str, n, char) {
     if (char === undefined || char === '') {
         char = ' ';
@@ -33,33 +35,14 @@ function padLeft(str, n, char) {
 
 //////////////////////////////////////////////////////////////////////////////
 
-function identity(x) {
-    return x;
-}
-
 function prop(key) {
     return function (x) {
         return x[key];
     };
 }
 
-function getColumn(collection, key) {
-    return collection.map(prop(key));
-}
-
 function max(list) {
     return Math.max.apply(Math, list);
-}
-
-function compose(f, g) {
-    return function (x) {
-        return f(g(x));
-    };
-}
-
-function getColumnMaxLength(collection, key) {
-    var column = getColumn(collection, key);
-    return max(column.map(prop('length')));
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -69,9 +52,6 @@ module.exports = {
     pad: pad,
     padLeft: padLeft,
 
-    identity: identity,
     prop: prop,
-    getColumn: getColumn,
-    max: max,
-    compose: compose,
+    max: max
 };

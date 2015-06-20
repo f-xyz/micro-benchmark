@@ -1,22 +1,6 @@
 var suite = require('./suite');
 var formatNumber = require('./util').formatNumber;
 var util = require('./util');
-var log = require('./log');
-
-function max(list) {
-    return Math.max.apply(Math, list);
-}
-
-function compose(f, g) {
-    return function (x) {
-        return f(g(x));
-    };
-}
-
-function getColumnMaxLength(collection, key) {
-    var column = util.getColumn(collection, key);
-    return max(column.map(util.prop('length')));
-}
 
 var table = [{
     a: 1,
@@ -36,21 +20,17 @@ describe('repeat()', function () {
     });
 });
 
-describe('column() tests', function () {
-    it('yields the column', function () {
-        util.getColumn(table, 'a').should.eql([1, 2]);
-        util.getColumn(table, 'b').should.eql([2, 3]);
-    });
-});
-
-
 function report(result) {
     if (result.length == 0) return;
 
-    var getMaxLen = function (key) {
-        var maxHeader = headers[key].length;
-        var maxColumn = getColumnMaxLength(result, key);
-        return Math.max(maxHeader, maxColumn);
+    var getMaxLength = function (key) {
+        var headerLength = headers[key].length;
+
+        var column = result.map(util.prop(key));
+        var columnLength = column.map(util.prop('length'));
+        var maxColumnLength = util.max(columnLength);
+
+        return Math.max(headerLength, maxColumnLength);
     };
 
     var getChartLength = function (x) {
@@ -66,7 +46,7 @@ function report(result) {
     };
 
     // max operations per second value
-    var maxOps = max(result.map(util.prop('ops')));
+    var maxOps = util.max(result.map(util.prop('ops')));
 
     // formatting
     result = result.map(function (x) {
@@ -80,9 +60,9 @@ function report(result) {
     });
 
     // columns' widths
-    var nameMaxLength = getMaxLen('name');
-    var opsMaxLength = getMaxLen('ops');
-    var timeMaxLength = getMaxLen('time');
+    var nameMaxLength = getMaxLength('name');
+    var opsMaxLength = getMaxLength('ops');
+    var timeMaxLength = getMaxLength('time');
 
     // final processing and output
     var rowSeparator = '\n';

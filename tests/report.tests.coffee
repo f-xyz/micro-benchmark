@@ -18,16 +18,3 @@ describe 'report()', ->
       'Name      Operation per second    Average time\n' +
       'test 1    100 ops                        10 ms    =====================>\n' +
       'test 2    10 ops                         10 ms    ===>\n\n'
-
-###########################################################
-
-describe 'utils tests', ->
-  describe 'pad()', ->
-
-    it 'pads string from right by spaces', ->
-      pad('abc', 5, '#').should.eq('abc##')
-      pad('abc', 1, '#').should.eq('abc')
-
-    describe 'padLeft()', ->
-      it 'pads string from right by spaces', ->
-        padLeft('abc', 5, '#').should.eq('##abc')

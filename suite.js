@@ -1,12 +1,10 @@
-var log = require('./log');
 var profile = require('./profile');
-var profileAsync = require('./profileAsync');
 
 function suite(config) {
     var specs = config.specs;
 
     var result = specs.map(function (spec) {
-        var result = profile(spec.fn, config/*, next() */);
+        var result = profile(spec.fn, config);
         return {
             name: spec.name,
             ops: result.ops,

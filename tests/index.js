@@ -10,8 +10,5 @@ describe('### micro-profiler tests ###', function () {
     require('./profileAsync.tests.coffee');
     require('./suite.tests.coffee');
     require('./report.tests.coffee');
-
-    after(function () {
-        console.log('\n\t', new Date());
-    });
+    require('./util.tests.coffee');
 });
