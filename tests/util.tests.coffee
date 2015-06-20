@@ -34,3 +34,7 @@ describe 'util tests', ->
     describe 'max() tests', ->
       it 'returns maximal value from array', ->
         util.max([1, 2, 3]).should.eq(3)
+
+    describe 'repeat() tests', ->
+        it 'repeats item N times', ->
+          util.repeat('x', 3).should.eq('xxx')

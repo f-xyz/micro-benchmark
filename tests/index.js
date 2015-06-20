@@ -1,6 +1,5 @@
 var chai = require('chai');
 
-// IIFE
 void function () {
     chai.should();
 }();

@@ -2,24 +2,6 @@ var suite = require('./suite');
 var formatNumber = require('./util').formatNumber;
 var util = require('./util');
 
-var table = [{
-    a: 1,
-    b: 2
-}, {
-    a: 2,
-    b: 3
-}];
-
-function repeat(str, times) {
-    return Array(times + 1).join(str);
-}
-
-describe('repeat()', function () {
-    it('repeats string', function () {
-        repeat('x', 3).should.eq('xxx');
-    });
-});
-
 function report(result) {
     if (result.length == 0) return;
 
@@ -74,7 +56,7 @@ function report(result) {
                 util.pad(x.name, nameMaxLength),
                 util.pad(x.ops, opsMaxLength),
                 util.padLeft(x.time, timeMaxLength),
-                repeat('=', getChartLength(x)) + '>'
+                util.repeat('=', getChartLength(x)) + '>'
             ].join(cellSeparator);
         });
 

@@ -45,13 +45,20 @@ function max(list) {
     return Math.max.apply(Math, list);
 }
 
+function repeat(str, times) {
+    return Array(times + 1).join(str);
+}
+
 //////////////////////////////////////////////////////////////////////////////
 
 module.exports = {
+    // number
     formatNumber: formatNumber,
+    // string
     pad: pad,
     padLeft: padLeft,
-
+    // functional
     prop: prop,
-    max: max
+    max: max,
+    repeat: repeat
 };
