@@ -2,7 +2,7 @@ var suite = require('./suite');
 var formatNumber = require('./util').formatNumber;
 var util = require('./util');
 
-function report(result) {
+function report(result, options) {
 
     var getMaxLength = function (key) {
         var headerLength = headers[key].length;
@@ -14,16 +14,32 @@ function report(result) {
         return Math.max(headerLength, maxColumnLength);
     };
 
-    var getChartLength = function (x) {
-        var k = parseInt(x.original.ops) / maxOps;
-        return Math.round(20 * k) + 1;
+    var getChartLength = function (x, maxOps) {
+        var chartWidth = config.chartWidth;
+        var k = x.original.ops / maxOps;
+        if (isNaN(k)) {
+            return chartWidth;
+        }
+        return Math.round(chartWidth * k);
     };
 
-    // headers
+    // init
+
+    var config = {
+        chartWidth: 30
+    };
+
+    if (typeof options == 'object' ) {
+        Object.keys(options).forEach(function (key) {
+            config[key] = options[key];
+        });
+    }
+
+    // column headers
     var headers = {
         name: 'Name',
-        ops: 'Operation per second',
-        time: 'Average time'
+        ops: 'Operations per second',
+        time: 'Average time, ms'
     };
 
     // max operations per second value
@@ -33,8 +49,8 @@ function report(result) {
     result = result.map(function (x) {
         return {
             name: x.name,
-            ops: util.formatNumber(x.ops) + ' ops',
-            time: util.formatNumber(x.time) + ' ms',
+            ops: util.formatNumber(x.ops),
+            time: util.formatNumber(x.time),
             lastResult: x.lastResult,
             original: x
         };
@@ -54,8 +70,8 @@ function report(result) {
             return [
                 util.pad(x.name, nameMaxLength),
                 util.pad(x.ops, opsMaxLength),
-                util.padLeft(x.time, timeMaxLength),
-                util.repeat('=', getChartLength(x)) + '>'
+                util.pad(x.time, timeMaxLength),
+                util.repeat('=', getChartLength(x, maxOps)) + '>'
             ].join(cellSeparator);
         });
 
@@ -66,10 +82,8 @@ function report(result) {
     ];
 
     var output = [];
-    output.push('\n');
     output.push(headers.join(cellSeparator));
     output.push(rows.join(rowSeparator));
-    output.push('\n');
 
     return output.join('\n');
 }
