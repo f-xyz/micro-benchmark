@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var bump = require('gulp-bump');
 var mocha = require('gulp-spawn-mocha');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
@@ -16,13 +17,19 @@ function getBundleName(ext) {
 }
 
 gulp.task('default', ['build']);
-gulp.task('build', ['clean', 'browserify', 'test']);
+gulp.task('build', ['clean', 'bump', 'browserify', 'test']);
 gulp.task('clean', function (cb) {
     del([
         'dist/',
         'coverage/',
         'docs/'
     ], cb);
+});
+gulp.task('bump', function () {
+    return gulp
+        .src('./package.json')
+        .pipe(bump({ type: 'build-version' }))
+        .pipe(gulp.dest('./'));
 });
 gulp.task('browserify', function () {
     var bundler = browserify({
