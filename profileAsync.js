@@ -3,12 +3,10 @@ var createConfig = require('./createConfig');
 function profileAsync(fn, options, cb) {
 
     if (!(fn instanceof Function)) {
-        // todo: output signature
         throw new Error('No function to profile!');
     }
 
     if (!(cb instanceof Function)) {
-        // todo: output signature
         throw new Error('No callback function!');
     }
 

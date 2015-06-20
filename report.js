@@ -3,7 +3,6 @@ var formatNumber = require('./util').formatNumber;
 var util = require('./util');
 
 function report(result) {
-    if (result.length == 0) return;
 
     var getMaxLength = function (key) {
         var headerLength = headers[key].length;

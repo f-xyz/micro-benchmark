@@ -1,25 +1,24 @@
 var profileAsync = require('./profileAsync');
 
-// todo
-
 function suiteAsync(config, cb) {
-    //var specs = config.specs;
+    var specs = config.specs;
 
-    //var result = specs.map(function (spec) {
-    //    var result = profileAsync(spec.fn, config/*, next() */);
-    //    return {
-    //        name: spec.name,
-    //        ops: result.ops,
-    //        time: result.time,
-    //        lastResult: result.lastResult
-    //    };
-    //});
-    //
-    //result.sort(function (a, b) {
-    //    return b.ops - a.ops;
-    //});
-
-    //return result;
+    (function run(queue, results) {
+        var spec = queue.shift();
+        if (spec) {
+            profileAsync(spec.fn, config, function (result) {
+                results.push({
+                    name: spec.name,
+                    ops: result.ops,
+                    time: result.time,
+                    lastResult: result.lastResult
+                });
+                run(queue, results);
+            });
+        } else {
+            cb(results);
+        }
+    }(specs, []));
 }
 
 module.exports = suiteAsync;

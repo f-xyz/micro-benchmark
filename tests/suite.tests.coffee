@@ -1,7 +1,5 @@
 proxyquire = require 'proxyquire'
 suite = require '../suite'
-report = require '../report'
-{ formatNumber, pad, padLeft } = require '../util'
 
 describe 'suite() - incomplete, TBD', ->
 
@@ -42,15 +40,15 @@ describe 'suite() - incomplete, TBD', ->
       fn: test2
     }]
 
-    res = suite(config)
+    result = suite(config)
 
     # assert
 
     it 'sorts result by operation by second desc.', ->
-      (x.name for x in res).should.eql ['test 1', 'test 2']
+      (x.name for x in result).should.eql ['test 1', 'test 2']
 
     it 'yields result of profile()', ->
-      res[0].should.eql
+      result[0].should.eql
         name: 'test 1'
         ops: 100
         time: 10

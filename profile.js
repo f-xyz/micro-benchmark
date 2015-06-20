@@ -3,7 +3,6 @@ var createConfig = require('./createConfig');
 function profile(fn, options) {
 
     if (!(fn instanceof Function)) {
-        // todo: output signature
         throw new Error('No function to profile!');
     }
 

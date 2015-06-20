@@ -22,6 +22,8 @@ describe 'util tests', ->
       util.formatNumber(123.4).should.eq('123')
     it 'convert to exponential form otherwise', ->
       util.formatNumber(1234).should.eq('1.23e+3')
+    it 'returns not a numbers unchanged', ->
+      util.formatNumber('asd').should.eq('asd')
 
     describe 'prop() tests', ->
       it 'return getter function', ->
@@ -36,5 +38,5 @@ describe 'util tests', ->
         util.max([1, 2, 3]).should.eq(3)
 
     describe 'repeat() tests', ->
-        it 'repeats item N times', ->
-          util.repeat('x', 3).should.eq('xxx')
+      it 'repeats string N times', ->
+        util.repeat('abc ', 3).should.eq('abc abc abc ')

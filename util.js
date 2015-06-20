@@ -46,7 +46,7 @@ function max(list) {
 }
 
 function repeat(str, times) {
-    return Array(times + 1).join(str);
+    return new Array(times + 1).join(str);
 }
 
 //////////////////////////////////////////////////////////////////////////////
