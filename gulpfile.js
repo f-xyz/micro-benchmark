@@ -8,12 +8,11 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var del = require('del');
 var browserify = require('browserify');
-var pkg = require('./package.json');
+var _ = require('lodash');
 
 function getBundleName(ext) {
-    var name = pkg.name;
-    var version = pkg.version;
-    return name + '-' + version + ext;
+    var pkg = require('./package.json');
+    return pkg.name + '-' + pkg.version + ext;
 }
 
 gulp.task('default', ['build']);
@@ -31,13 +30,13 @@ gulp.task('bump', function () {
         .pipe(bump({ type: 'build-version' }))
         .pipe(gulp.dest('./'));
 });
-gulp.task('browserify', function () {
+gulp.task('browserify', ['bump'], function () {
     var bundler = browserify({
         entries: ['./index.js'],
         debug: true,
-        detectGlobals: false,
+        detectGlobals: true,
         insertGlobals: false,
-        standalone: 'inherits'
+        standalone: _.camelCase(require('./package.json').name)
     });
     return bundler
         .bundle()
