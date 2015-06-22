@@ -11,7 +11,7 @@
     "url": "https://github.com/f-xyz/micro-benchmark.git"
   },
   "keywords": [
-    "profiler"
+    "benchmark, profiler, performance, node, browser"
   ],
   "author": "f-xyz <andrey.lischina@gmail.com> (https://github.com/f-xyz)",
   "license": "MIT",
