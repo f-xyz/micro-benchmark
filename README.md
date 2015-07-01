@@ -48,8 +48,23 @@ console.log(report);
 // sqrt(i)      9.9 x 10^4               0.01                ==========>
 // pow(i, 2)    9.6 x 10^4               0.01                =========>
 // sin(i)       3.3 x 10^3               0.30                =>
-
 ```
+
+### function profile(fn, config)
+
+* **fn** - function to profile
+* **config** - {{ maxOperations: number, duration: number }}, optional
+    * **maxOperations** - optional function execution number limit, default value is 1000
+    * **duration** - optional time limit, default is 100 ms
+    
+### function profileAsync(fn, config, cb)
+
+* **fn** - function to profile, should call it's first argument: next()
+* **config** - {{ maxOperations: number, duration: number }}, optional
+    * **maxOperations** - optional function execution number limit, default value is 1000
+    * **duration** - optional time limit, default is 100 ms
+* **cb** - callback function
+
 
 ### function suite(config)
 
