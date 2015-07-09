@@ -21,7 +21,7 @@ function suite(config) {
     });
 
     if (config.report) {
-        report(config);
+        report(result);
     }
 
     return result;
