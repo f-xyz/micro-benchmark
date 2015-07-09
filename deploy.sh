@@ -9,4 +9,4 @@ git add --all .
 git commit -m "${commitMessage}"
 git push -u origin master
 
-sudo npm publish
+#sudo npm publish
