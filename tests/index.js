@@ -10,9 +10,9 @@ void function () {
 describe('### micro-profiler tests ###', function () {
     require('./profile.tests');
     require('./integration.tests');
-    //require('./profileAsync.tests.coffee');
-    //require('./suite.tests.coffee');
-    //require('./suiteAsync.tests.coffee');
-    //require('./report.tests.coffee');
-    //require('./util.tests.coffee');
+    require('./profileAsync.tests.coffee');
+    require('./suite.tests.coffee');
+    require('./suiteAsync.tests.coffee');
+    require('./report.tests.coffee');
+    require('./util.tests.coffee');
 });

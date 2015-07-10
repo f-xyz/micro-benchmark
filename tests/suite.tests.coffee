@@ -1,7 +1,7 @@
 proxyquire = require 'proxyquire'
 suite = require '../suite'
 
-describe 'suite() - incomplete, TBD', ->
+xdescribe 'suite() - incomplete, TBD', ->
 
   it 'is a function', ->
     suite.should.be.a 'function'

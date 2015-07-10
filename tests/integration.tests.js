@@ -15,15 +15,14 @@ const compile2 = (input) => {
 };
 
 var mb = require('../suite');
-var N = 1e0;
 var input = new Array(1000);
-console.log(mb);
 mb({
+    warmUpOps: 1000,
     report: true,
-    repeat: 1,
+    repeat: 10,
     limitTime: 100,
     limitOps: 1000,
-    barWidth: 20,
+    chartWidth: 20,
     specs: [
         () => compile(input),
         () => compile2(input)
