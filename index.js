@@ -3,7 +3,7 @@ var profileAsync = require('./profileAsync');
 var suite = require('./suite');
 var suiteAsync = require('./suiteAsync');
 var report = require('./report');
-var util = require('./util');
+var util = require('./utils');
 
 module.exports = {
     profile: profile,

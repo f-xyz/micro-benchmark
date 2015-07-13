@@ -21,7 +21,7 @@ describe 'profile()', () ->
 
   it 'calls provided function at least once', () ->
     spy = sinon.spy();
-    profile(spy, { operations: 0, duration: 0 })
+    profile(spy, { limitIterations: 0, limitTime: 0 })
     spy.called.should.be.true
 
   it 'returns average execution time', () ->
@@ -36,12 +36,12 @@ describe 'profile()', () ->
     result = profile -> 123
     result.lastResult.should.eq(123)
 
-  it 'respects maxOperations option', () ->
+  it 'respects limitIterations option', () ->
     spy = sinon.spy();
-    profile spy, { maxOperations: 20, duration: Infinity}
+    profile spy, { limitIterations: 20, limitTime: Infinity}
     spy.callCount.should.eq(20)
 
-  it 'respects duration option', () ->
+  it 'respects limitTime option', () ->
     spy = sinon.spy();
-    profile spy, { maxOperations: Infinity, duration: 20e3 }
+    profile spy, { limitIterations: Infinity, limitTime: 20e3 }
     spy.callCount.should.eq(20)

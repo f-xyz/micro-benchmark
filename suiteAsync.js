@@ -1,5 +1,5 @@
 var profileAsync = require('./profileAsync');
-var util = require('./util');
+var util = require('./utils');
 
 /**
  * @param config

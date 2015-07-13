@@ -1,42 +1,44 @@
-var util = require('./util');
+var _ = require('lodash');
+var utils = require('./utils');
 var profile = require('./profile');
 var report = require('./report');
 
-function extractName(fn) {
+function extractFunctionName(fn) {
     var exclude = ['function', 'return'];
     var words = fn
         .toString()
-        .match(/(\w+)/g)
+        .replace(/!.*$/, '')
+        .match(/([\w]+)/g)
         .filter(function (x) {
             return exclude.indexOf(x.trim()) == -1;
         });
-    return words.join(' ');
+    return utils.crop(words.join(' ').trim(), 20);
 }
 
-function suite(options) {
+function suite(specs, config) {
+    specs = specs || [];
+    config = _.defaults(config || {}, {
+        limitTime: 1, // profile
+        limitIterations: 1,  // profile
+        repeatTimes: 1,
+        printReport: false,
+        cacheWarmUpIterations: 0,
+        chartWidth: 20 // report
+    });
 
-    var config = {
-        repeat: 1,
-        specs: [],
-        limitTime: 100,
-        limitOps: 1000,
-        report: true,
-        chartWidth: 10
-    };
-
-    if (options) {
-        Object.keys(options).forEach(function (key) {
-            config[key] = options[key];
-        });
-    }
-
-    var result = config.specs.map(function (fn) {
-        var name = fn.name || extractName(fn) || util.uniqId('func-');
-        var repeater = function () {
-            for (var i = 0; i < config.repeat; i++) {
-                
+    var repeatFn = function (fn, times) {
+        return function () {
+            for (var i = 0; i < times; i++) {
+                fn();
             }
         };
+    };
+
+    var suiteResult = specs.map(function (fn) {
+        var name = fn.name || extractFunctionName(fn) || utils.uniqId('test-');
+        if (config.repeatTimes != 1) {
+            fn = repeatFn(fn, config.repeatTimes);
+        }
         var result = profile(fn, config);
         return {
             name: name,
@@ -46,15 +48,15 @@ function suite(options) {
         };
     });
 
-    result.sort(function (a, b) {
+    suiteResult.sort(function (a, b) {
         return b.ops - a.ops;
     });
 
-    if (config.report) {
-        console.log(report(result, config));
+    if (config.printReport) {
+        console.log(report(suiteResult, config));
     }
 
-    return result;
+    return suiteResult;
 }
 
 module.exports = suite;

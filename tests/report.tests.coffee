@@ -1,7 +1,12 @@
 proxyquire = require 'proxyquire'
 suite = require '../suite'
-report = require '../report'
-{ formatNumber, pad, padLeft } = require '../util'
+{ formatNumber, pad, padLeft } = require '../utils'
+
+report = proxyquire '../report', {
+  './suite': -> {
+
+  }
+}
 
 describe 'report()', ->
 

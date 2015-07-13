@@ -1,0 +1,11 @@
+node_modules/
+.idea/
+coverage/
+docs/
+tests/
+dist/
+test.sh
+deploy.sh
+.travis.yml
+.gitignore
+gulpfile.js

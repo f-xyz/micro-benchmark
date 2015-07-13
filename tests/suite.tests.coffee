@@ -1,7 +1,7 @@
 proxyquire = require 'proxyquire'
 suite = require '../suite'
 
-xdescribe 'suite() - incomplete, TBD', ->
+describe 'suite() tests', ->
 
   it 'is a function', ->
     suite.should.be.a 'function'
@@ -10,8 +10,8 @@ xdescribe 'suite() - incomplete, TBD', ->
 
     # arrange
 
-    test1 = ->
-    test2 = ->
+    test1 = -> 111
+    test2 = -> 222
 
     lastConfig = null
 
@@ -26,30 +26,27 @@ xdescribe 'suite() - incomplete, TBD', ->
         time: 100
         lastResult: 321
       else
-        throw new RangeError('Invalid fn!');
+        throw new RangeError('`fn` param should be function. But given: ' + fn);
 
     suite = proxyquire '../suite', { './profile': profileMock }
 
     # action
 
-    config = specs: [{
-      name: 'test 1'
-      fn: test1
-    }, {
-      # no name
-      fn: test2
-    }]
+    specs = [test1, test2]
+    config = { specs }
 
-    result = suite(config)
+    result = suite [test1, test2], config
+
+    console.log result
 
     # assert
 
     it 'sorts result by operation by second desc.', ->
-      (x.name for x in result).should.eql ['test 1', 'suite-0']
+      (x.name for x in result).should.eql ['111', '222']
 
     it 'yields result of profile()', ->
       result[0].should.eql
-        name: 'test 1'
+        name: '111'
         ops: 100
         time: 10
         lastResult: 123

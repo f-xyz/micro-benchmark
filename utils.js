@@ -38,6 +38,14 @@ function padLeft(str, n, char) {
     return str;
 }
 
+function crop(str, length, subst) {
+    if (str.length <= length) {
+        return str;
+    }
+    subst = subst || '...';
+    return str.slice(0, length - subst.length + 1) + subst;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 
 function prop(key) {
@@ -68,6 +76,7 @@ module.exports = {
     // string
     pad: pad,
     padLeft: padLeft,
+    crop: crop,
     // functional
     prop: prop,
     max: max,

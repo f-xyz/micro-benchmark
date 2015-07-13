@@ -1,15 +1,15 @@
 var createConfig = require('./createConfig');
 
-function profile(fn, options) {
+function profile(fn, config) {
 
     if (!(fn instanceof Function)) {
         throw new Error('No function to profile!');
     }
 
-    var config = createConfig({
-        maxOperations: 1e3,
-        duration: 100
-    }, options);
+    config = createConfig({
+        limitIterations: 1e3,
+        limitTime: 100
+    }, config);
 
     var started = Date.now();
     var lastResult,
@@ -22,8 +22,8 @@ function profile(fn, options) {
         elapsed = Date.now() - started;
         operations++;
 
-        if (elapsed >= config.duration
-        ||  operations >= config.maxOperations) {
+        if (elapsed >= config.limitTime
+        ||  operations >= config.limitIterations) {
             break;
         }
     }
