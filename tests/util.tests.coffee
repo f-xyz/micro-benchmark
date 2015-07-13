@@ -1,4 +1,4 @@
-utils = require '../utils'
+utils = require '../src/utils'
 
 describe 'utils tests', ->
 

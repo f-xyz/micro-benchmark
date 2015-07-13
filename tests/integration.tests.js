@@ -22,21 +22,21 @@ const testFn3 = (input) => {
     return result;
 };
 
-var mb = require('../suite');
-var profile = require('../profile');
-var utils = require('../utils');
+var mb = require('../src/suite');
+var profile = require('../src/profile');
+var utils = require('../src/utils');
 
 describe('report example', function () {
     it('report example', function () {
         var input = new Array(1e0).join('0123456789abcdef');
 
         mb([
-            () => utils.pad(input, 200000),
-            () => utils.padLeft(input, 100000)
+            () => utils.pad(input, 200),
+            () => utils.padLeft(input, 100)
         ], {
             limitTime: 1,
             limitIterations: 1,
-            repeatTimes: 1,
+            repeatTimes: 1000,
             printReport: true,
             cacheWarmUpIterations: 0,
             chartWidth: 20
