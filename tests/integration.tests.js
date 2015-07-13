@@ -1,9 +1,6 @@
-const makeItem = (_, i, input) =>
-    [input[i-2], input[i-1], input[i]];
-
 const testFn1 = (input) =>
     input
-        .map(makeItem)
+        .map((_, i, input) => [input[i-2], input[i-1], input[i]])
         .slice(2);
 
 const testFn2 = (input) => {
@@ -28,11 +25,11 @@ var utils = require('../src/utils');
 
 describe('report example', function () {
     it('report example', function () {
-        var input = new Array(1e0).join('0123456789abcdef');
-
+        var input = new Array(1e2).join('0123456789abcdef').split('');
         mb([
-            () => utils.pad(input, 200),
-            () => utils.padLeft(input, 100)
+            () => testFn1(input),
+            () => testFn2(input),
+            () => testFn3(input)
         ], {
             limitTime: 1,
             limitIterations: 1,
