@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var gulp = require('gulp');
 var bump = require('gulp-bump');
 var mocha = require('gulp-spawn-mocha');
@@ -8,7 +9,6 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var del = require('del');
 var browserify = require('browserify');
-var _ = require('lodash');
 
 function getBundleName(ext) {
     var pkg = require('./package.json');
@@ -18,18 +18,16 @@ function getBundleName(ext) {
 gulp.task('default', ['build']);
 gulp.task('build', ['clean', 'bump', 'browserify', 'test']);
 gulp.task('clean', function (cb) {
-    del([
-        'dist/',
-        'coverage/',
-        'docs/'
-    ], cb);
+    del(['dist/', 'coverage/'], cb);
 });
+
 gulp.task('bump', function () {
     return gulp
         .src('./package.json')
         .pipe(bump({ type: 'build-version' }))
         .pipe(gulp.dest('./'));
 });
+
 gulp.task('browserify', ['bump'], function () {
     var bundler = browserify({
         entries: ['./index.js'],
@@ -51,6 +49,7 @@ gulp.task('browserify', ['bump'], function () {
         .pipe(gulp.dest('dist/'))
     ;
 });
+
 gulp.task('test', function () {
     return gulp.src('tests/index.js', { read: false })
         .pipe(mocha({
@@ -62,6 +61,7 @@ gulp.task('test', function () {
             compilers: 'coffee:coffee-script/register'
         }));
 });
+
 gulp.task('test-watch', function () {
     return gulp.src('tests/index.js', { read: false })
         .pipe(mocha({

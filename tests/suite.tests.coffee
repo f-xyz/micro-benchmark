@@ -26,14 +26,20 @@ describe 'suite() tests', ->
         time: 100
         lastResult: 321
       else
-        throw new RangeError('`fn` param should be function. But given: ' + fn);
+        throw new Error('`fn` param should be function. But given: ' + fn);
 
     suite = proxyquire '../src/suite', { './profile': profileMock }
 
     # action
 
-    specs = [test1, test2]
-    config = { specs }
+    config = {
+      limitTime: 20
+      limitIterations: 1000
+      repeatTimes: 1
+      printReport: true
+      cacheWarmUpIterations: 0
+      chartWidth: 20
+    }
 
     result = suite [test1, test2], config
 

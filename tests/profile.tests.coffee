@@ -1,4 +1,4 @@
-profile = require('../profile')
+profile = require('../src/profile')
 sinon = require('sinon')
 
 describe 'profile()', () ->

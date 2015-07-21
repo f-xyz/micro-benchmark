@@ -1,8 +1,8 @@
 proxyquire = require 'proxyquire'
-suite = require '../suite'
-utils = require '../utils'
+suite = require '../src/suite'
+utils = require '../src/utils'
 
-report = proxyquire '../report', {
+report = proxyquire '../src/report', {
   './suite': -> {
     #
   }

@@ -8,10 +8,10 @@ function profile(fn, config) {
         throw new Error('No function to profile!');
     }
 
-    config = utils.configure({
+    config = utils.configure(config, {
         limitIterations: 1e3,
         limitTime: 100
-    }, config);
+    });
 
     var started = Date.now();
     var lastResult,
