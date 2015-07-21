@@ -8,12 +8,9 @@ void function () {
 }();
 
 describe('### micro-profiler tests ###', function () {
-    require('./profile.tests');
-    //require('./profileAsync.tests.coffee');
+    //require('./profile.tests');
     require('./suite.tests');
-    //require('./suiteAsync.tests.coffee');
-    require('./report.tests.coffee');
-    require('./util.tests');
-
-    //require('./integration.tests');
+    //require('./report.tests.coffee');
+    //require('./util.tests');
+    require('./integration.tests');
 });
