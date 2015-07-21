@@ -1,5 +1,5 @@
 proxyquire = require 'proxyquire'
-suite = require '../suite'
+suite = require '../src/suite'
 
 describe 'suite() tests', ->
 
@@ -28,7 +28,7 @@ describe 'suite() tests', ->
       else
         throw new RangeError('`fn` param should be function. But given: ' + fn);
 
-    suite = proxyquire '../suite', { './profile': profileMock }
+    suite = proxyquire '../src/suite', { './profile': profileMock }
 
     # action
 
