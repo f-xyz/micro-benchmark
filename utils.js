@@ -1,3 +1,21 @@
+module.exports = {
+    // number
+    formatNumber: formatNumber,
+    // string
+    pad: pad,
+    padLeft: padLeft,
+    crop: crop,
+    // functional
+    prop: prop,
+    max: max,
+    repeat: repeat,
+    uniqId: uniqId,
+    // object
+    configure: configure
+};
+
+//////////////////////////////////////////////////////////////////////////////
+
 function formatNumber(n) {
     if (typeof n == 'number') {
         switch (true) {
@@ -8,8 +26,7 @@ function formatNumber(n) {
             case n < 1000:
                 return n.toFixed(0);
             default:
-                return n.toExponential(1)
-                    .replace(/e\+/, ' x 10^');
+                return n.toExponential(1).replace(/e\+/, ' x 10^');
         }
     } else {
         return n;
@@ -70,16 +87,13 @@ uniqId.reset = function (counter) { uniqId.counter = counter };
 
 //////////////////////////////////////////////////////////////////////////////
 
-module.exports = {
-    // number
-    formatNumber: formatNumber,
-    // string
-    pad: pad,
-    padLeft: padLeft,
-    crop: crop,
-    // functional
-    prop: prop,
-    max: max,
-    repeat: repeat,
-    uniqId: uniqId
-};
+function configure(config, defaults) {
+    config = config || {};
+    defaults = defaults || {};
+
+    Object.keys(config).forEach(function (key) {
+        defaults[key] = config[key];
+    });
+
+    return defaults;
+}

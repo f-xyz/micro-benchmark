@@ -1,4 +1,6 @@
-var createConfig = require('./createConfig');
+var utils = require('./utils');
+
+module.exports = profile;
 
 function profile(fn, config) {
 
@@ -6,7 +8,7 @@ function profile(fn, config) {
         throw new Error('No function to profile!');
     }
 
-    config = createConfig({
+    config = utils.configure({
         limitIterations: 1e3,
         limitTime: 100
     }, config);
@@ -34,5 +36,3 @@ function profile(fn, config) {
         lastResult: lastResult
     };
 }
-
-module.exports = profile;

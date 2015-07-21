@@ -30,12 +30,17 @@ describe('report example', function () {
     it('report example', function () {
         var input = new Array(1e0).join('0123456789abcdef');
 
+        var N = 1e4;
         mb([
-            () => utils.pad(input, 200000),
-            () => utils.padLeft(input, 100000)
+            () => utils.pad(input, N),
+            () => utils.pad(input, N),
+            () => utils.pad(input, N),
+            () => utils.padLeft(input, N),
+            () => utils.padLeft(input, N),
+            () => utils.padLeft(input, N)
         ], {
-            limitTime: 1,
-            limitIterations: 1,
+            limitTime: 20,
+            limitIterations: 1000,
             repeatTimes: 1,
             printReport: true,
             cacheWarmUpIterations: 0,

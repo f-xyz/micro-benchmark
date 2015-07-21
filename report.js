@@ -1,9 +1,26 @@
+require('console.table');
+var easyTable = require('easy-table');
+//var Table = require('easy-table');
+
 var suite = require('./suite');
 var formatNumber = require('./utils').formatNumber;
 var utils = require('./utils');
 var chalk = require('chalk');
 
+module.exports = report;
+
 function report(result, options) {
+
+    result = result.map(function (x) {
+        return {
+            name: x.name,
+            ops: utils.formatNumber(x.ops),
+            time: utils.formatNumber(x.time)
+        };
+    });
+    console.log(result);
+    console.table(result);
+    return;
 
     var getMaxLength = function (key) {
         var headerLength = headers[key].length;
@@ -97,7 +114,7 @@ function report(result, options) {
     output.push(rows.map(function (x, i) {
         var color = i == 0 && 'green'
                 ||  i == 1 && 'yellow'
-                ||  'reset';
+                ||            'reset';
         x = chalk[color](x);
         return prefix + x + suffix;
     }).join(rowSeparator));
@@ -105,5 +122,3 @@ function report(result, options) {
 
     return output.join('\n');
 }
-
-module.exports = report;

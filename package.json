@@ -1,6 +1,6 @@
 {
   "name": "micro-benchmark",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "Small benchmarking suite.",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,9 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "chalk": "^1.1.0"
+    "chalk": "^1.1.0",
+    "console.table": "^0.4.0",
+    "easy-table": "^1.0.0",
+    "tty-table": "^1.0.6"
   }
 }

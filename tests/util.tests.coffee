@@ -2,6 +2,22 @@ utils = require '../utils'
 
 describe 'utils tests', ->
 
+  describe 'configure() tests', ->
+    it 'is a function', ->
+      utils.configure.should.be.instanceOf Function
+    it 'ignores non-object defaults arguments', ->
+      utils.configure().should.eql({})
+    it 'extends config with defaults', ->
+      config = {}
+      defaults = { a: 1 }
+      res = utils.configure(config, defaults)
+      res.should.eql({ a: 1 })
+    it 'does not overrides existing properties', ->
+      config = { a: 2 }
+      defaults = { a: 1 }
+      res = utils.configure(config, defaults)
+      res.should.eql({ a: 2 })
+
   describe 'pad() tests', ->
     it 'pads string from right', ->
       utils.pad('abc', 5, '#').should.eq('abc##')
@@ -51,7 +67,7 @@ describe 'utils tests', ->
 
     describe 'uniqId() tests', ->
       it 'return unique ID', ->
-        utils.uniqId.reset(0);
+        utils.uniqId.reset(0)
         utils.uniqId('abc').should.eq('abc0')
         utils.uniqId('abc').should.eq('abc1')
-        utils.uniqId.reset(0);
+        utils.uniqId.reset(0)

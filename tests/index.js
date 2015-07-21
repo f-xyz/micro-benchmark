@@ -9,7 +9,7 @@ void function () {
 
 describe('### micro-profiler tests ###', function () {
     //require('./profile.tests');
-    require('./suite.tests');
+    //require('./suite.tests');
     //require('./report.tests.coffee');
     //require('./util.tests');
     require('./integration.tests');

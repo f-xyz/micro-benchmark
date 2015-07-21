@@ -1,7 +1,8 @@
-var _ = require('lodash');
 var utils = require('./utils');
 var profile = require('./profile');
 var report = require('./report');
+
+module.exports = suite;
 
 function extractFunctionName(fn) {
     var exclude = ['function', 'return'];
@@ -17,7 +18,7 @@ function extractFunctionName(fn) {
 
 function suite(specs, config) {
     specs = specs || [];
-    config = _.defaults(config || {}, {
+    config = utils.configure(config, {
         limitTime: 1, // profile
         limitIterations: 1,  // profile
         repeatTimes: 1,
@@ -58,5 +59,3 @@ function suite(specs, config) {
 
     return suiteResult;
 }
-
-module.exports = suite;

@@ -1,4 +1,4 @@
-{ profile } = require('../index')
+profile = require('../profile')
 sinon = require('sinon')
 
 describe 'profile()', () ->
