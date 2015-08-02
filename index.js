@@ -5,9 +5,9 @@ var util = require('./src/utils');
 
 module.exports = {
     profile: profile,
-    profileAsync: profileAsync,
+    //profileAsync: profileAsync,
     suite: suite,
-    suiteAsync: suiteAsync,
+    //suiteAsync: suiteAsync,
     report: report,
     util: util
 };
